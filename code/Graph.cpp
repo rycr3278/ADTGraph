@@ -1,5 +1,5 @@
 #include "Graph.h"
-
+#include <stack>
 #include <iostream>
 #include <sstream>
 
@@ -92,7 +92,18 @@ set<shared_ptr<Edge>> Graph::getAdjacentEdges(shared_ptr<Node> n) {
 }
 
 void Graph::clear() {
-  // TODO
+  // Reset all nodes to initial state (WHITE color, -1 discovery/finish time, rank = -1, predecessor = nullptr)
+  for (auto node : nodes) {
+    node->clear();
+  }
+  
+  // Reset all edges to UNDISCOVERED_EDGE type
+  for (auto edge : edges) {
+    edge->setType(UNDISCOVERED_EDGE);
+  }
+
+  // Reset the graph clock to 0
+  clock = 0;
 }
 
 void Graph::tick(string message) {
@@ -108,16 +119,99 @@ void Graph::tick(string message) {
 }
 
 void Graph::dfs(shared_ptr<Node> start) {
-  // TODO
+  stack<shared_ptr<Node>> nodeStack; // Use stack for the stack
+  nodeStack.push(start);
+
+  // Reset the clock to 0 at the beginning of the dfs traversal
+  clock = 0;
+
+  start->setColor(GRAY, ++clock); // Mark the start node as discovered (GRAY) and update discovery time
+  start->setRank(0); // The rank of the start node is 0
+
+  while (!nodeStack.empty()) {
+    shared_ptr<Node> current = nodeStack.top();
+    nodeStack.pop();
+
+    // Get the adjacent edges of the current node
+    set<shared_ptr<Edge>> adjEdges = getAdjacentEdges(current);
+
+    for (auto edge : adjEdges) {
+      shared_ptr<Node> neighbor = edge->getEnd();
+      if (neighbor->getColor() == WHITE) {
+        neighbor->setColor(GRAY, ++clock); // Mark the neighbor as discovered (GRAY) and update discovery time
+        neighbor->setRank(current->getRank() + 1); // The rank of the neighbor is one more than the current node
+        nodeStack.push(neighbor);
+      }
+    }
+
+    current->setColor(BLACK, ++clock); // Mark the current node as finished (BLACK) and update finish time
+  }
 }
 
 void Graph::bfs(shared_ptr<Node> start) {
-  // TODO
+  queue<shared_ptr<Node>> nodeQueue; // Use queue for the queue
+  nodeQueue.push(start);
+
+  // Reset the clock to 0 at the beginning of the bfs traversal
+  clock = 0;
+
+  start->setColor(GRAY, ++clock); // Mark the start node as discovered (GRAY) and update discovery time
+  start->setRank(0); // The rank of the start node is 0
+
+  while (!nodeQueue.empty()) {
+    shared_ptr<Node> current = nodeQueue.front();
+    nodeQueue.pop();
+
+    // Get the adjacent edges of the current node
+    set<shared_ptr<Edge>> adjEdges = getAdjacentEdges(current);
+
+    for (auto edge : adjEdges) {
+      shared_ptr<Node> neighbor = edge->getEnd();
+      if (neighbor->getColor() == WHITE) {
+        neighbor->setColor(GRAY, ++clock); // Mark the neighbor as discovered (GRAY) and update discovery time
+        neighbor->setRank(current->getRank() + 1); // The rank of the neighbor is one more than the current node
+        nodeQueue.push(neighbor);
+      }
+    }
+
+    current->setColor(BLACK, ++clock); // Mark the current node as finished (BLACK) and update finish time
+  }
 }
 
 void Graph::bfs(shared_ptr<Node> start, shared_ptr<Node> finish) {
-  // TODO
+  queue<shared_ptr<Node>> nodeQueue;
+  nodeQueue.push(start);
+
+  start->setColor(GRAY, ++clock); // Mark the start node as discovered (GRAY) and update discovery time
+  start->setRank(0); // The rank of the start node is 0
+
+  while (!nodeQueue.empty()) {
+    shared_ptr<Node> current = nodeQueue.front();
+    nodeQueue.pop();
+
+    if (current == finish) {
+      // The finish node is found, mark it as finished (BLACK) and update finish time
+      current->setColor(BLACK, ++clock);
+      return;
+    }
+
+    // Get the adjacent edges of the current node
+    set<shared_ptr<Edge>> adjEdges = getAdjacentEdges(current);
+
+    for (auto edge : adjEdges) {
+      shared_ptr<Node> neighbor = edge->getEnd();
+      if (neighbor->getColor() == WHITE) {
+        neighbor->setColor(GRAY, ++clock); // Mark the neighbor as discovered (GRAY) and update discovery time
+        neighbor->setRank(current->getRank() + 1); // The rank of the neighbor is one more than the current node
+        neighbor->setPredecessor(current);
+        nodeQueue.push(neighbor);
+      }
+    }
+
+    current->setColor(BLACK, ++clock); // Mark the current node as finished (BLACK) and update finish time
+  }
 }
+
 
 
 // overloading operator << lets you put a Graph object into an output
