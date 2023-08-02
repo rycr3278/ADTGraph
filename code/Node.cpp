@@ -26,31 +26,57 @@ void Node::setRank(int r) {
 }
 
 void Node::clear() {
-  // TODO
+  color = WHITE;
+  discovery_time = -1;
+  completion_time = -1;
+  rank = -1;
+  predecessor = nullptr;
 }
 
 void Node::setColor(int search_color, int time) {
-  // TODO
+  color = search_color;
+  if (search_color == GRAY) {
+    discovery_time = time;
+  } else if (search_color == BLACK) {
+    completion_time = time;
+  } else if (search_color == WHITE) {
+    discovery_time = -1; // Reset discovery time to -1 when color is set to WHITE
+    completion_time = -1;
+  }
 }
 
-void Node::getDiscoveryInformation(int& thecolor, int& disco_time, 
-				   int& finish_time, int& bfs_rank) {
-  // TODO
+void Node::getDiscoveryInformation(int& thecolor, int& disco_time, int& finish_time, int& bfs_rank) {
+  thecolor = color;
+  disco_time = discovery_time;
+  finish_time = completion_time;
+  bfs_rank = rank;
 }
 
 bool Node::isAncestor(shared_ptr<Node> other) {
-  // TODO
-  return false;
+  shared_ptr<Node> current = predecessor; // Start from the predecessor
+  while (current != nullptr) {
+    if (current == other) {
+      return true; // Found the "other" node in the predecessor list
+    }
+    current = current->predecessor;
+  }
+  return false; // "other" node not found in the predecessor list
 }
 
 void Node::setPredecessor(shared_ptr<Node> other) {
-  // TODO
+  predecessor = other;
 }
 
-// overloading operator << lets you put a Node object into an output
-// stream.
-ostream &operator << (std::ostream& out, Node node) {
-  // DONE FOR YOU
+int Node::getColor() const {
+  return color;
+}
+
+int Node::getRank() const {
+  return rank;
+}
+
+// Overloading operator << lets you put a Node object into an output stream.
+ostream &operator<<(std::ostream &out, Node node) {
   out << node.data;
   return out;
 }
