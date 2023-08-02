@@ -28,6 +28,8 @@ public:
   string getData();
   void setData(string s);
   void setRank(int rank);
+  int getRank() const; // Getter for rank
+  int getColor() const; // Getter for color
 
   // Have you ever wondered when you say cout << "hello world!" << endl; what <<
   // means? how is it implemented? these are operator methods that you can
