@@ -27,7 +27,7 @@ int Edge::getType() {
 }
 
 void Edge::setType(int edge_type) {
-  // TODO
+  type = edge_type;
 }
 
 // overloading operator << lets you put an Edge object into an output
