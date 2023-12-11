@@ -1,4 +1,4 @@
-### Summary of ADTGraph
+# Summary of ADTGraph
 
 **Focus:** 
 This project centers on implementing an Abstract Data Type (ADT) graph using adjacency lists. It aims to provide hands-on experience with graph data structures and fundamental graph algorithms. It was originally assigned as a class project for CSCI 2270 - Data Structures.
@@ -21,6 +21,8 @@ This project centers on implementing an Abstract Data Type (ADT) graph using adj
 - This assignment is detail-oriented, requiring careful attention to the implementation of graph algorithms and data structure concepts.
 - It encourages a methodical approach, suggesting the implementation of functions in the order they appear in the test file.
 - The use of pseudocode and helper functions is recommended for clarity and efficiency.
+
+**Below are the original assignment instructions, unaltered.**
 
 
 # CSCI 2270 - Data Structures - Assignment 9 
