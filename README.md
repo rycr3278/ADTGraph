@@ -1,3 +1,28 @@
+### Summary of ADTGraph
+
+**Focus:** 
+This project centers on implementing an Abstract Data Type (ADT) graph using adjacency lists. It aims to provide hands-on experience with graph data structures and fundamental graph algorithms. It was originally assigned as a class project for CSCI 2270 - Data Structures.
+
+**Key Skills Developed:**
+- Implementing graph data structures using nodes and edges.
+- Executing Breadth-First Search (BFS) and Depth-First Search (DFS) algorithms.
+- Understanding and applying concepts like adjacency lists, graph traversal, and metadata coupling in graphs.
+
+**Project Structure:**
+- Core implementation involves modifying `Graphs.cpp`, `Node.cpp`, and `Edge.cpp`.
+- The project includes a testing framework to validate the implementation.
+
+**Assignment Highlights:**
+- The Graph class includes methods for graph traversal (BFS and DFS) and resetting graph states.
+- The Node class focuses on node state management, including discovery and finish times in searches.
+- The Edge class is designed to handle edge types and properties.
+
+**Learning Insights:**
+- This assignment is detail-oriented, requiring careful attention to the implementation of graph algorithms and data structure concepts.
+- It encourages a methodical approach, suggesting the implementation of functions in the order they appear in the test file.
+- The use of pseudocode and helper functions is recommended for clarity and efficiency.
+
+
 # CSCI 2270 - Data Structures - Assignment 9 
 ## Overview 
 In this assignment, you will implement an ADT graph and run Breadth-First Search and Depth-First Search algorithms. Graphs are versatile data structures that model relationships between things, so a generic graph data structure has nodes connected by edges. Adjacency matrices and adjacency lists are common ways to implement a graph. This week's video lectures cover various ways to implement graphs, design decisions regarding storing metadata, and common graph algorithms.  
